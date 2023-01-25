@@ -1,40 +1,40 @@
 version: 2.1
 
-# commands:
-#   destroy-environment:
-#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#     parameters:
-#       workflow_id:
-#         type: string 
-#     steps:
-#       - run:
-#           name: Destroy environments
-#           when: on_fail
-#           command: |
-#             aws cloudformation delete-stack \
-#             --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
-#             aws s3 rm s3://udapeople-01252023 --recursive
-#             aws cloudformation delete-stack \
-#             --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+commands:
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    parameters:
+      workflow_id:
+        type: string 
+    steps:
+      - run:
+          name: Destroy environments
+          when: on_fail
+          command: |
+            aws cloudformation delete-stack \
+            --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+            aws s3 rm s3://udapeople-01252023 --recursive
+            aws cloudformation delete-stack \
+            --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
 
-#   revert-migrations:
-#     description: Revert the last migration if successfully run in the current workflow.
-#     parameters:
-#       workflow_id:
-#         type: string   
-#     steps:
-#       - run:
-#           name: Revert migrations
-#           when: on_fail
-#           command: |
-#             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-#             # SUCCESS = 1
-#             # if(( $SUCCESS==1 )); 
-#             # then
-#             cd ~/project/backend
-#             npm install
-#             npm run build
-#             npm run migrations:revert
+  revert-migrations:
+    description: Revert the last migration if successfully run in the current workflow.
+    parameters:
+      workflow_id:
+        type: string   
+    steps:
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            # SUCCESS = 1
+            # if(( $SUCCESS==1 )); 
+            # then
+            cd ~/project/backend
+            npm install
+            npm run build
+            npm run migrations:revert
             
 jobs:
   build-frontend:
