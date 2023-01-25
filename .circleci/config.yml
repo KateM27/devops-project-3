@@ -175,7 +175,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 'ed:e7:c0:24:91:63:7e:35:5d:ba:f8:10:54:5a:82:9a'
-      - attach workspace:
+      - attach_workspace:
           at: ~/
       - run:
           name: Install dependencies
@@ -197,7 +197,7 @@ jobs:
             cat backend/.env
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
-#       # Here's where you will add some code to rollback on failure      
+      # Here's where you will add some code to rollback on failure      
 
   run-migrations:
     docker:
