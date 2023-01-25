@@ -255,6 +255,7 @@ jobs:
             cd frontend
             npm install
             npm update
+            npm audit fix
             npm audit fix --legacy-peer-deps
             npm audit fix --force
             npm run build
@@ -285,7 +286,8 @@ jobs:
           command: |
             cd backend
             npm install
-            npm updte
+            npm update
+            npm audit fix
             npm audit fix --legacy-peer-deps
             npm audit fix --force
             npm run build
