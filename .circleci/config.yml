@@ -231,7 +231,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
       - attach_workspace:
@@ -267,7 +267,7 @@ jobs:
                     
   deploy-backend:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
       - add_ssh_keys:
@@ -284,6 +284,7 @@ jobs:
           command: |
             cd backend
             npm install
+            npm update
             npm run build
             tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
