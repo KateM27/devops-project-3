@@ -256,6 +256,7 @@ jobs:
           command: |
             cd frontend
             npm install
+            npm install --legacy-peer-deps
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
@@ -284,6 +285,7 @@ jobs:
           command: |
             cd backend
             npm install
+            npm install --legacy-peer-deps
             npm update
             npm run build
             tar -C backend -czvf artifact.tar.gz .
