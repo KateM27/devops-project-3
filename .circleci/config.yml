@@ -260,6 +260,7 @@ jobs:
             npm install
             npm audit fix
             npm audit fix --force
+            npm audit fix --force
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
@@ -289,6 +290,7 @@ jobs:
             cd backend
             npm install
             npm audit fix
+            npm audit fix --force
             npm audit fix --force
             npm run build
             cd ..
