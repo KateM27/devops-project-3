@@ -257,9 +257,9 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
+            npm update
             npm install
             npm audit fix
-            npm audit fix --force
             npm audit fix --force
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
@@ -288,10 +288,12 @@ jobs:
           name: Deploy backend
           command: |
             cd backend
+            npm update
             npm install
             npm audit fix
             npm audit fix --force
             npm audit fix --force
+            npm audit fix --legacy-peer-deps
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
