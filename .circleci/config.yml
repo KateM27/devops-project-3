@@ -316,13 +316,6 @@ jobs:
           command: |
             apk add --update --no-cache curl nodejs npm aws-cli
       - run:
-          name: Get backend url
-          command: |
-            export BACKEND_IP=$(aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
-            --output text)
-      - run:
           name: Backend smoke test.
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances \
@@ -331,7 +324,7 @@ jobs:
             --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-            if curl --connect-timeout 5 "${API_URL}/api/status" | grep "ok"
+            if curl -s ${API_URL}/api/status | grep "ok"
             then
               return 0
             else
