@@ -349,33 +349,33 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       # Here's where you will add some code to rollback on failure  
 
-  cloudfront-update:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt install -y tar gzip curl aws-cli
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip -qq awscliv2.zip
-            sudo ./aws/install
-      - run:
-          name: Update cloudfront distribution
-          command: |
-            export OldWorkflowID=$(aws cloudformation list-exports \
-            --query "Exports[?Name==\`WorkflowID\`].Value" \
-            --no-paginate --output text)
-            aws cloudformation deploy \
-            --template-file .circleci/files/cloudfront.yml \
-            --stack-name InitialStack \
-            --parameter-overrides WorkflowID=${CIRCLE_WORKFLOW_ID:0:7} \
-            --tags project=udaPeople
-      - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+  # cloudfront-update:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Install dependencies
+  #         command: |
+  #           sudo apt install -y tar gzip curl aws-cli
+  #           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+  #           unzip -qq awscliv2.zip
+  #           sudo ./aws/install
+  #     - run:
+  #         name: Update cloudfront distribution
+  #         command: |
+  #           export OldWorkflowID=$(aws cloudformation list-exports \
+  #           --query "Exports[?Name==\`WorkflowID\`].Value" \
+  #           --no-paginate --output text)
+  #           aws cloudformation deploy \
+  #           --template-file .circleci/files/cloudfront.yml \
+  #           --stack-name InitialStack \
+  #           --parameter-overrides WorkflowID=${CIRCLE_WORKFLOW_ID:0:7} \
+  #           --tags project=udaPeople
+  #     - destroy-environment:
+  #         workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+  #     - revert-migrations:
+  #         workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
        # Here's where you will add some code to rollback on failure  
 
 # cleanup:
