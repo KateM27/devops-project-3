@@ -236,6 +236,8 @@ jobs:
       - image: python:3.7-alpine3.16
     steps:
       - checkout
+      - restore_cache:
+          keys: [frontend-build]
       - attach_workspace:
           at: ~/
       - run:
@@ -257,10 +259,7 @@ jobs:
           name: Deploy frontend objects
           command: |
             cd frontend
-            npm update
-            npm install
-            npm audit fix
-            npm audit fix --force
+            npm i -f
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
@@ -283,17 +282,13 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache curl tar gzip ansible nodejs npm aws-cli
+            apk add --update --no-cache curl tar gzip ansible nodejs npm openssh
+            pip install awscli
       - run:
           name: Deploy backend
           command: |
             cd backend
-            npm update
-            npm install
-            npm audit fix
-            npm audit fix --force
-            npm audit fix --force
-            npm audit fix --legacy-peer-deps
+            npm i -f
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
