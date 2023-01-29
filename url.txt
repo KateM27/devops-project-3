@@ -1,5 +1,5 @@
 Github repository[URL01]: https://github.com/KateM27/devops-project-3
-S3 Bucket[URL02]: https://udapeople-8d361fc.s3.amazonaws.com
-CloudFront distribution[URL03]:
-EC2 application backend[URL04]:
+S3 Bucket[URL02]: https://udapeople-767658e.s3.amazonaws.com/#/employees
+CloudFront distribution[URL03]: https://dgs5lx40kpfu3.cloudfront.net/#/employees
+EC2 application backend[URL04]: http://18.206.202.29/api/status
 Prometheus server[URL05]:
